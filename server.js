@@ -1,154 +1,72 @@
 
 const nodemailer = require('nodemailer');
 
-const readline = require('readline');
-
- 
+const readline = require('readline'); 
+const f = require('./service');
 
 const rl = readline.createInterface({
-
-    input: process.stdin,
-
-    output: process.stdout
-
-});
-
- 
-
- 
-
-rl.question('Recipient\'s Email: ', (recipientEmail) => {
-
-   
-
-    rl.question('Subject: ', (subject) => {
-
-       
-
-        rl.question('Message: ', (message) => {
-
-           
-
-            const transporter = nodemailer.createTransport({
-
-                service: 'gmail',
-
-                auth: {
-
-                    user: 'namitjain0620@gmail.com',
-
-                    pass: 'fafq lont teao eieh'
-
-                }
-
-            });
-
- 
-
-            // Email data
-
-            const mailOptions = {
-
-                from: 'namitjain0620@gmail.com',
-
-                to: recipientEmail,
-
-                subject: subject,
-
-                text: message
-
-            };
-
- 
-
-            // Send the email
-
-            transporter.sendMail(mailOptions, (error, info) => {
-
-                if (error) {
-
-                    console.log('Error:', error);
-
-                } else {
-
-                    console.log('Email sent:', info.response);
-
-                }
-
- 
-
-                // Close the readline interface
-
-                rl.close();
-
-            });
-
+        input: process.stdin,
+       output: process.stdout
+});  
+function profile(){
+    let recipientEmail = '';
+    let subject = '';
+    let message = '';
+  
+    rl.question('Recipient\'s Email: ', (email) => {
+      recipientEmail = email;
+  
+      rl.question('Subject: ', (subj) => {
+        subject = subj;
+  
+        rl.question('Message: ', (msg) => {
+          message = msg;
+        
+          rl.close();
+  
+          
+          f.sendEmail(recipientEmail, subject, message);
         });
-
+      });
     });
+  }
+  profile();
 
-});
 
- 
 
-// var nodemailer = require('nodemailer');
+// rl.question('Recipient\'s Email: ', (recipientEmail) => {  
+//     rl.question('Subject: ', (subject) => {      
+//         rl.question('Message: ', (message) => {        
 
-// const readline = require('readline');
+//             const transporter = nodemailer.createTransport({
 
-// let rl = readline.createInterface(
+//                 service: 'gmail',
+//                 auth: {
+//                     user: process.env.EMAIL_USER, 
+//                     pass: process.env.EMAIL_PASS 
+        
+//                      }
+//                      });
 
-//     process.stdin, process.stdout);
+//             const mailOptions = {
+//                 from: process.env.EMAIL_USER,
+//                 to: recipientEmail,
+//                 subject: subject,
+//                 text: message
 
-//     rl.question('What is mail id? ', (mailOptions.to) => {
+//             };
 
-//         console.log('Your message has sent: ' + mailOptions.to);
+//             transporter.sendMail(mailOptions, (error, info) => {
+//                 if (error) {
+//                     console.log('Error:', error);
+//                 } else {
+//                     console.log('Email sent:', info.response);
+//                 } 
 
+//                  rl.close();
+//             });
+//         });
 //     });
-
-   
-
- 
-
-// var transporter = nodemailer.createTransport({
-
-//   service: 'gmail',
-
-//   auth: {
-
-//     user: 'namitjain0620@gmail.com',
-
-//     pass: 'fafq lont teao eieh'
-
-//   }
-
 // });
 
  
-
-// var mailOptions = {
-
-//   from: 'namitjain0620@gmail.com',
-
-//   to: '2019ume1716@mnit.ac.in',
-
-//   subject: 'This is testing email',
-
-//   text: 'Hi, how are you doing!'
-
-// };
-
- 
-
-// transporter.sendMail(mailOptions, function(error, info){
-
-//   if (error) {
-
-//     console.log(error);
-
-//   } else {
-
-//     console.log('Email sent: ' + info.response);
-
-//   }
-
-// });
